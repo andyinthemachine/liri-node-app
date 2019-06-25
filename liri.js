@@ -16,6 +16,7 @@ var moment = require("moment");
 
 var inquirer = require("inquirer");
 
+function new_line(){console.log("\n")}
 
 // // moment().format();
 
@@ -24,15 +25,34 @@ var inquirer = require("inquirer");
 // movie-this
 // do-what-it-says
 
+// var media_choice = "";
+// var media_item = "";
+
+new_line();
 inquirer.prompt([
     {
         type: "list",
-        name: "mediachoice",
+        name: "media_choice",
         message: "What would you like to look up?",
-        choices: ["A concert", "A song", "A movie","Read from file"]
+        choices: ["concert", "song", "movie", "Read from file"]
     }
-]).then(function(response) {
-    console.log(`You chose ${response.mediachoice}`);
+]).then(function (response) {
+    if (response.media_choice === "Read from file"){
+        new_line();
+
+    } else {
+        new_line();
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "media_item",
+                message: "What " + response.media_choice + " would you like to look up?",
+            }
+        ]).then(function (response) {
+            new_line();
+
+        });
+    }
 });
 
 
