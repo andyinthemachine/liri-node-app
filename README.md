@@ -19,5 +19,5 @@
 
 ###Two questions are asked: Which media you would like to research, and what media item within that media
 
-![.GIF of CLI]()
+![.GIF of CLI](https://github.com/andyinthemachine/liri-node-app/blob/master/liri-node-app-1.gif)
 
