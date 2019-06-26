@@ -67,17 +67,6 @@ function spotify_api(media_item) {
 }
 
 
-
-// If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.
-// * Title of the movie.
-// * Year the movie came out.
-// * IMDB Rating of the movie.
-// * Rotten Tomatoes Rating of the movie.
-// * Country where the movie was produced.
-// * Language of the movie.
-// * Plot of the movie.
-// * Actors in the movie.
-
 function imdb_api(media_item) {
     console.log("imdb api: ", media_item);
     axios.get("http://www.omdbapi.com/?t=" + media_item + "&y=&plot=short&apikey=trilogy")
