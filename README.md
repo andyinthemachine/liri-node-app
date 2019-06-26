@@ -5,19 +5,19 @@
 
 
 
-##**App liri-node-app**
+## **App liri-node-app**
 
-###Application is javascript running in node.js 
+### Application is javascript running in node.js 
 
-###Prompts user utilizing inquire npm library 
+### Prompts user utilizing inquire npm library 
 
-###Allows user to find information for a concert, song, movie, or to do any of these via a file read.
+### Allows user to find information for a concert, song, movie, or to do any of these via a file read.
 
-###Makes API calls to Bands in Town for Concert Info, Spotify for song info, and IMDB for movie info
+### Makes API calls to Bands in Town for Concert Info, Spotify for song info, and IMDB for movie info
 
-###npm Links are setup to libraries axios, inquire, moment, spotify, and fs
+### npm Links are setup to libraries axios, inquire, moment, spotify, and fs
 
-###Two questions are asked: Which media you would like to research, and what media item within that media
+### Two questions are asked: Which media you would like to research, and what media item within that media
 
 ![.GIF of CLI](https://github.com/andyinthemachine/liri-node-app/blob/master/liri-node-app-1.gif)
 
