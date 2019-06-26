@@ -1,9 +1,10 @@
 
 
 
-// Spotify liri-node app
-// Client ID bfb08deb54d546a7a4f7af2e0e894865
-// Client Secret 52b56af3e1e745fcbc5c9111d12449fe
+// liri-node app
+
+// Spotify Client ID bfb08deb54d546a7a4f7af2e0e894865
+// Spotify Client Secret 52b56af3e1e745fcbc5c9111d12449fe
 
 
 require("dotenv").config();
@@ -16,17 +17,40 @@ var moment = require("moment");
 
 var inquirer = require("inquirer");
 
-function new_line(){console.log("\n")}
+function new_line() { console.log("\n") }
+
+function bands_in_town_api(media_item) {
+    console.log("bands in town api: ", media_item);
+}
+
+function spotify_api(media_item) {
+    console.log("spotify api: ", media_item);
+}
+
+function imdb_api(media_item) {
+    console.log("imdb api: ", media_item);
+}
+
+
+function display_info(media_choice, media_item) {
+    new_line();
+    switch (media_choice) {
+        case "concert":
+            bands_in_town_api(media_item);
+            break;
+        case "song":
+            spotify_api(media_item);
+            break;
+        case "movie":
+            imdb_api(media_item);
+            break;
+        default:
+            console.log(media_choice + " search not available");
+    }
+
+}
 
 // // moment().format();
-
-// concert-this
-// spotify-this-song
-// movie-this
-// do-what-it-says
-
-// var media_choice = "";
-// var media_item = "";
 
 new_line();
 inquirer.prompt([
@@ -37,9 +61,14 @@ inquirer.prompt([
         choices: ["concert", "song", "movie", "Read from file"]
     }
 ]).then(function (response) {
-    if (response.media_choice === "Read from file"){
-        new_line();
-
+    if (response.media_choice === "Read from file") {
+        fs.readFile("random.txt", "utf8", function (error, data) {
+            if (error)
+                return console.log(error);
+            var dataArr = data.split(",");
+            display_info(dataArr[0], dataArr[1]);
+            new_line();
+        });
     } else {
         new_line();
         inquirer.prompt([
@@ -48,9 +77,9 @@ inquirer.prompt([
                 name: "media_item",
                 message: "What " + response.media_choice + " would you like to look up?",
             }
-        ]).then(function (response) {
+        ]).then(function (response2) {
+            display_info(response.media_choice, response2.media_item);
             new_line();
-
         });
     }
 });
@@ -166,4 +195,4 @@ fs.readFile("random.txt", "utf8", function (error, data) {
 // It should run spotify-this-song for "I Want it That Way," as follows the text in random.txt.
 // Edit the text in random.txt to test out the feature for movie-this and concert-this.
 
-// console.log(process.argv);
+// console.log(process.argv)
