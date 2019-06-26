@@ -20,8 +20,33 @@ var inquirer = require("inquirer");
 function new_line() { console.log("\n") }
 
 function bands_in_town_api(media_item) {
-    console.log("bands in town api: ", media_item);
+    axios.get("https://rest.bandsintown.com/artists/" + media_item + "/events?app_id=codingbootcamp")
+    .then(function (response) {
+        if (response.data.length > 0){
+            console.log("Upcoming " + media_item + " concerts");
+            var i = 0;
+            while ((i++ < 3) && (i <= response.data.length)){
+                new_line();
+                console.log(`Venue: ${response.data[i].venue.name}`);
+                console.log(`Location: ${response.data[i].venue.city}, ${response.data[i].venue.country}`);
+                console.log(`Date: ${moment(response.data[i].datetime).format('L')}`);
+            }
+            new_line();
+        }
+    })
+    .catch(function (error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) 
+            console.log(error.request);
+          else 
+            console.log("Error", error.message);
+        console.log(error.config);
+    });
 }
+
 
 function spotify_api(media_item) {
     console.log("spotify api: ", media_item);
@@ -50,7 +75,6 @@ function display_info(media_choice, media_item) {
 
 }
 
-// // moment().format();
 
 new_line();
 inquirer.prompt([
@@ -67,7 +91,6 @@ inquirer.prompt([
                 return console.log(error);
             var dataArr = data.split(",");
             display_info(dataArr[0], dataArr[1]);
-            new_line();
         });
     } else {
         new_line();
@@ -79,41 +102,17 @@ inquirer.prompt([
             }
         ]).then(function (response2) {
             display_info(response.media_choice, response2.media_item);
-            new_line();
         });
     }
 });
 
 
 
-//          node liri.js concert-this <artist/band name here>
-// "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
-// Name of the venue
-// Venue location
-// Date of the Event (use moment to format this as "MM/DD/YYYY")
-
-// Grab the axios package...
-
-// Run the axios.get function...
-// The axios.get function takes in a URL and returns a promise (just like $.ajax)
 
 
-// axios.get("https://rest.bandsintown.com/artists/" + "Weezer" + "/events?app_id=codingbootcamp")
-//     .then(function (response) {
-//         console.log(response.data);
-//     })
-//     .catch(function (error) {
-//         if (error.response) {
-//             console.log(error.response.data);
-//             console.log(error.response.status);
-//             console.log(error.response.headers);
-//         } else if (error.request) 
-//             console.log(error.request);
-//           else 
-//             console.log("Error", error.message);
 
-//         console.log(error.config);
-//     });
+
+
 
 //          node liri.js spotify-this-song '<song name here>'
 // You will utilize the node-spotify-api package in order to retrieve song information from the Spotify API.
